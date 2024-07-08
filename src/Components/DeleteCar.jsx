@@ -1,4 +1,3 @@
-import * as React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
@@ -7,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { deleteCar, deleteCarAdmin } from '../API/API';
 import { CircularProgress } from '@mui/material';
 import { getIdToken, getRoleToken } from '../functions/getTokenPayload';
+import { useEffect, useState } from 'react';
 
 const style = {
   position: 'absolute',
@@ -20,25 +20,25 @@ const style = {
 };
 
   const DeleteCar = ({CarId}) => {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const [loading, setLoading] = React.useState(false);
-  const [carDeleted, setCarDeleted] = React.useState("");
-  const [admin, setAdmin] = React.useState(false);
+  const [loading, setLoading] = useState(false);
+  const [carDeleted, setCarDeleted] = useState("");
+  const [admin, setAdmin] = useState(false);
   const token = localStorage.getItem('authorization');
   const role = getRoleToken();
   const idToken = getIdToken();
 
   const navigate = useNavigate();
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (role === "ADMIN") {
        setAdmin(true)
     } else {
        setAdmin(false);
     }
-   }, []);
+   }, [role]);
 
   const handleDelete = async () => {
      setLoading(true)

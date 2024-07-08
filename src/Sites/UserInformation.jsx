@@ -58,7 +58,7 @@ const UserInformation = () => {
 
    useEffect(() => {
       getUserFunc();
-   }, []);
+   }, [getUserFunc]);
 
    const navigate = useNavigate();
 

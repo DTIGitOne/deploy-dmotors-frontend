@@ -62,8 +62,6 @@ const Main = () => {
     };
    }, [dispatch]);
 
-   const contentVisible = useSelector((state) => state.messageopen.contentVisible);
-
    const token = localStorage.getItem('authorization');
     
     useEffect(() => {
@@ -82,7 +80,7 @@ const Main = () => {
       };
   
       fetchAndSetCars();
-    }, [dispatch]);
+    }, [dispatch, token]);
 
     const openMessages = () => {
       dispatch(setExpanded(true));

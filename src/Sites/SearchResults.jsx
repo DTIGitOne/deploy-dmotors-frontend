@@ -88,7 +88,7 @@ const SearchResults = () => {
         };
 
         fetchCars();
-    }, [location.search, page]);
+    }, [location.search, page, dispatch, searchCriteria]);
 
     const handlePageChange = (newPage) => {
         dispatch(setPageNumber(newPage));

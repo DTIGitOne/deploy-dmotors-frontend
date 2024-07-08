@@ -39,7 +39,7 @@ const Messages = ({ userId , receiverId}) => {
          dispatch(setOpenMessages(false));
          dispatch(setExpanded(false));
       }
-   }, [receiverId]);
+   }, [receiverId, dispatch, fetchMessages]);
 
    useEffect(() => {
       const mediaQuery = window.matchMedia("(min-width: 1024px)");
@@ -87,7 +87,7 @@ const Messages = ({ userId , receiverId}) => {
 
    useEffect(() => {
       getDetails();
-   }, []);
+   }, [getDetails]);
 
    useEffect(() => {
       if(!userLogged) {
@@ -105,7 +105,6 @@ const Messages = ({ userId , receiverId}) => {
    }, [openMessages, messages]);
 
    const checkFunc = async (idtoken , token) => {
-      const user = await checkToken(idtoken, token);
       setUserLogged(true);
    }
 
@@ -142,6 +141,8 @@ const Messages = ({ userId , receiverId}) => {
                'Content-Type': 'application/json'
             }
          });
+
+         console.log(response);
 
          setMessages([...messages, {
             sender: userId,
@@ -236,7 +237,7 @@ const Messages = ({ userId , receiverId}) => {
                            <div className=' messageBoxes h-20 flex relative'>
                              <div className='h-full w-1/4 flex justify-center items-center'>
                               <div className=' h-14 w-14 rounded-full flex overflow-hidden justify-center items-center'>
-                               <img className='object-cover h-full w-full' src={profile.pfpURL} alt={`${profile.username}'s profile picture`} />
+                               <img className='object-cover h-full w-full' src={profile.pfpURL} alt="" />
                               </div>
                              </div>
                             <div className='h-full w-3/4 flex flex-col text-xl overflow-hidden'>

@@ -22,7 +22,7 @@ const Sidebar = () => {
     } else {
       setIsAdmin(false);
     }
-  }, []);
+  }, [role]);
 
   const navigate = useNavigate();
 

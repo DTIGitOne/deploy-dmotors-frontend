@@ -94,11 +94,8 @@ const User = () => {
    const [colorError, setColorError] = useState("");
    const [colorManufacturerError, setColorManufacturerError] = useState("");
    const [interiorError, setInteriorError] = useState("");
-   const [userTittleError, setUserTittleError] = useState("");
 
    const errorRef = useRef(null);
-
-   const currentYear = new Date().getFullYear();
 
    const filteredBrandModels = brandModels.map(brand => ({
     ...brand,
@@ -112,10 +109,6 @@ const User = () => {
     const yearRangeRegi = selectedYear
     ? generateYearRange(selectedYear)
     : generateYearRange(1950);
-
-   const handleYearChangeFunc = (event) => {
-     setSelectedYear(event.target.value);
-   };
 
    const handleModelChange = (event, newValue) => {
     setSelectedModel(newValue);
@@ -156,7 +149,7 @@ const User = () => {
         categoryError || performanceError || driveTypeError || driveTrainError || 
         seatsError || doorsError || pollutantClassError || fuelError || 
         transmitionTypeError || ownersError || colorError || 
-        colorManufacturerError || interiorError || userTittleError || priceError
+        colorManufacturerError || interiorError || priceError
       ) {
         errorRef.current.scrollIntoView({ behavior: 'smooth' });
       }
@@ -165,7 +158,7 @@ const User = () => {
       conditionError, registrationError, firstRegistrationError, categoryError,
       performanceError, driveTypeError, driveTrainError, seatsError, doorsError,
       pollutantClassError, fuelError, transmitionTypeError, ownersError,
-      colorError, colorManufacturerError, interiorError, userTittleError, priceError
+      colorError, colorManufacturerError, interiorError, priceError
     ]);
 
    const [isDragging , setIsDragging] = useState(false);
@@ -443,10 +436,6 @@ const User = () => {
       }
     }
   };
-
-   const handleInputChange = (e) => {
-      setFormData({ ...formData, [e.target.name]: e.target.value });
-   };
 
     const handleDrop = (event) => {
       event.preventDefault(); 

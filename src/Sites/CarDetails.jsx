@@ -107,7 +107,7 @@ const CarDetails = () => {
       } else {
          setAdmin(false);
       }
-     }, []);
+     }, [role]);
 
    const getCarFunc = async () => {
       setLoading(true);
@@ -173,7 +173,7 @@ const CarDetails = () => {
 
    useEffect(() => {
       getCarFunc();
-   }, []);
+   }, [getCarFunc]);
 
    useEffect(() => {
       window.scrollTo(0, 0);
@@ -196,7 +196,7 @@ const CarDetails = () => {
                <div className=" flex">
                 <div className="w-1/2 flex justify-center items-center">
                  <div className="relative h-20 w-20 rounded-full object-cover overflow-hidden" style={{ border: "2px solid #534D56" }}>
-                  <img onClick={() => handleProfile(userId)} className=" cursor-pointer h-full w-full object-cover" src={userImage} alt="" />
+                  <img onClick={() => handleProfile(userId)} className=" cursor-pointer h-full w-full object-cover" src={userImage} alt="https://stmartinblue.com/images/cars/default_car.jpg" />
                  </div>
                 </div>
                 <div ref={ProfileSectionRef} className="pl-2 w-1/2 flex flex-col justify-center">

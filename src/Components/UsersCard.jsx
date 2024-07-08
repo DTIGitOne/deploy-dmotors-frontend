@@ -8,9 +8,9 @@ import { Button } from '@mui/material';
 import { changeUserAdmin } from '../API/API';
 
 const UsersCard = ({name, surname, username, email, image, roles, id}) => {
-   const [intialRole, setIntialRole] = useState(roles);
+   const intialRole = roles;
    const [role, setRole] = useState(roles);
-   const [initialUsername, setInitialUsername] = useState(username);
+   const initialUsername = username;
    const [usernameInput, setUsernameInput] = useState(username);
    const [newData, setNewData] = useState(false);
    const [userAdmin, setUserAdmin] = useState(false);
@@ -19,7 +19,7 @@ const UsersCard = ({name, surname, username, email, image, roles, id}) => {
     if (roles === "ADMIN") {
       setUserAdmin(true);
     }
-   }, []);
+   }, [roles]);
 
    useEffect(() => {
       if (role !== intialRole || usernameInput !== initialUsername) {
@@ -27,7 +27,7 @@ const UsersCard = ({name, surname, username, email, image, roles, id}) => {
       } else {
         setNewData(false);
       }
-   }, [role]);
+   }, [role, usernameInput, intialRole, initialUsername]);
 
    useEffect(() => {
       if (usernameInput !== initialUsername || role !== intialRole) {
@@ -35,7 +35,7 @@ const UsersCard = ({name, surname, username, email, image, roles, id}) => {
       } else {
         setNewData(false);
       }
-   },[usernameInput]);
+   },[usernameInput, initialUsername, intialRole, role]);
 
    const token = localStorage.getItem('authorization');
 
