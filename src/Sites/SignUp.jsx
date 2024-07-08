@@ -138,7 +138,7 @@ const SignUp = () => {
           <div className="h-10"></div>
           <MenuBar />
           <p className="text-4xl font-medium" style={{ color: '#1070FF' }}>Sign up</p>
-          <div className="rounded-3xl border bg-white flex justify-start flex-col p-4 gap-5 m-2 mb-1" style={{height: "590px", width: "88%"}}>
+          <div id='signUpBoxBox' className="rounded-3xl border bg-white flex justify-start flex-col p-4 gap-5 m-2 mb-1" style={{height: "590px"}}>
             <p className="text-center text-xl">Create your account</p>
             <div className=' flex flex-col w-full gap-2'>
               <div className=' h-16 w-full'>

@@ -90,7 +90,7 @@ const LogIn = () => {
         <div className="h-10"></div>
         <MenuBar />
         <div className="text-4xl font-medium" style={{ color: '#1070FF' }}>Log in</div>
-        <div className="bg-white rounded-3xl w-4/5 flex flex-col items-center p-5 pt-10" style={{ height: "350px" }}>
+        <div id="loginBoxBox" className="bg-white rounded-3xl w-4/5 flex flex-col items-center p-5 pt-10" style={{ height: "350px" }}>
           <div className='h-16 w-full'>
             <TextField 
               value={username} 

@@ -21,7 +21,7 @@ const CreateReview = ({ open, handleClose }) => {
       if (userId) {
         setUserToken(false);
       }
-   }, [userId]);
+   }, []);
 
    const totalStars = 5;
    const filledColor = "#1070FF";

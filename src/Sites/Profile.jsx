@@ -49,7 +49,7 @@ const User = () => {
     } else {
       setAdmin(false);
     }
-  }, [id, idtoken, isAdmin]);
+  }, []);
 
   const editingBio = (e) => {
     setChangingBio(true);
@@ -68,7 +68,7 @@ const User = () => {
 
   useEffect(() => {
     getUserData();
-  }, [id, getUserData]);
+  }, [id]);
 
   const submit = async () => {
     if(Admin === true) {
@@ -98,7 +98,7 @@ const User = () => {
     } catch (e) {
       console.log(e);
     } 
-  }, [getUserData]);
+  }, []);
 
   const handleCreate = () => {
     navigate(`/Create/${id}`);
@@ -142,7 +142,7 @@ const User = () => {
 
   useEffect(() => {
     submit();
-  }, [file, submit]);
+  }, [file]);
 
   const navigate = useNavigate();
 
@@ -171,7 +171,7 @@ const User = () => {
               <div className="h-1/3 mt-16 w-full flex">
                 <div className=" relative flex justify-center items-center w-36 ml-6 h-full">
                   <div className=" relative h-36 w-36 rounded-full object-cover overflow-hidden" style={{ border: "2px solid #534D56" }}>
-                    {user && <img className=" object-cover w-full h-full" src={user.pfp} alt='' />}
+                    {user && <img className=" object-cover w-full h-full" src={user.pfp} alt="Profile Picture" />}
                     {usersAccount || Admin ? (
                       <form onSubmit={submit}>
                         <input id="file" className=" cursor-pointer editBackdrop z-50 absolute " onChange={e => setFile(e.target.files[0])} type="file" name="image" accept="image/*" />

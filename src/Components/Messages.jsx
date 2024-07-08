@@ -4,7 +4,7 @@ import "../CustomCSS/Message.css";
 import CloseIcon from '@mui/icons-material/Close';
 import axiosInstance from '../API/axios';
 import { getIdToken } from '../functions/getTokenPayload';
-import { getChats } from '../API/API';
+import { checkToken, getChats } from '../API/API';
 import SendMessageIcon from '../SVG/SendMesssageIcon';
 import GoBackIcon from '../SVG/GoBackIcon';
 import { useNavigate } from 'react-router-dom';
@@ -32,19 +32,6 @@ const Messages = ({ userId , receiverId}) => {
 
    const bottomRef = useRef(null);
 
-   const fetchMessages = async (otherUserId) => {
-      try {
-         const response = await axiosInstance.get(`/messages/${userId}/${otherUserId}`, {
-            headers: {
-               'authorization': `Bearer ${token}`,
-            },
-         });
-         setMessages(response.data);
-      } catch (error) {
-         console.error('Error fetching messages:', error);
-      }
-   };
-
    useEffect(() => {
       if (receiverId) {
          setReceiver(receiverId);
@@ -52,7 +39,7 @@ const Messages = ({ userId , receiverId}) => {
          dispatch(setOpenMessages(false));
          dispatch(setExpanded(false));
       }
-   }, [receiverId, dispatch, fetchMessages]);
+   }, [receiverId]);
 
    useEffect(() => {
       const mediaQuery = window.matchMedia("(min-width: 1024px)");
@@ -82,26 +69,25 @@ const Messages = ({ userId , receiverId}) => {
 
    const token = localStorage.getItem('authorization');
 
-   useEffect(() => {
-      const getDetails = async () => {
-         if (token) {
-            try {
-               const idtoken = getIdToken();
-               let chats = await getChats(idtoken, token);
-               checkFunc(idtoken, token);
-               const userProfiles = chats.data.flatMap(chat => chat.users);
-               const latestMessage = chats.data.flatMap(mes => mes.latestMessage)
-               setUserProfiles(userProfiles);
-               setLatestMessages(latestMessage);
-            } catch (e) {
-               console.error('Error:', e);
-            }
+   const getDetails = async () => {
+      if (token) {
+         try {
+            const idtoken = getIdToken();
+            let chats = await getChats(idtoken, token);
+            checkFunc(idtoken, token);
+            const userProfiles = chats.data.flatMap(chat => chat.users);
+            const latestMessage = chats.data.flatMap(mes => mes.latestMessage)
+            setUserProfiles(userProfiles);
+            setLatestMessages(latestMessage);
+         } catch (e) {
+            console.error('Error:', e);
          }
       }
-   
+   }
+
+   useEffect(() => {
       getDetails();
-   
-   }, [token]);
+   }, []);
 
    useEffect(() => {
       if(!userLogged) {
@@ -119,8 +105,22 @@ const Messages = ({ userId , receiverId}) => {
    }, [openMessages, messages]);
 
    const checkFunc = async (idtoken , token) => {
+      const user = await checkToken(idtoken, token);
       setUserLogged(true);
    }
+
+   const fetchMessages = async (otherUserId) => {
+      try {
+         const response = await axiosInstance.get(`/messages/${userId}/${otherUserId}`, {
+            headers: {
+               'authorization': `Bearer ${token}`,
+            },
+         });
+         setMessages(response.data);
+      } catch (error) {
+         console.error('Error fetching messages:', error);
+      }
+   };
 
    const handleLogin = () => {
       navigate("/Login")
@@ -142,8 +142,6 @@ const Messages = ({ userId , receiverId}) => {
                'Content-Type': 'application/json'
             }
          });
-
-         console.log(response);
 
          setMessages([...messages, {
             sender: userId,
@@ -238,7 +236,7 @@ const Messages = ({ userId , receiverId}) => {
                            <div className=' messageBoxes h-20 flex relative'>
                              <div className='h-full w-1/4 flex justify-center items-center'>
                               <div className=' h-14 w-14 rounded-full flex overflow-hidden justify-center items-center'>
-                               <img className='object-cover h-full w-full' src={profile.pfpURL} alt="" />
+                               <img className='object-cover h-full w-full' src={profile.pfpURL} alt={`${profile.username}'s profile picture`} />
                               </div>
                              </div>
                             <div className='h-full w-3/4 flex flex-col text-xl overflow-hidden'>

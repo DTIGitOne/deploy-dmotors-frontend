@@ -30,7 +30,7 @@ const MenuBar = () => {
      } else {
        setIsAdmin(false);
      }
-   }, [role]);
+   }, []);
   
    const location = useLocation();
    const { pathname } = location;
@@ -91,7 +91,7 @@ const MenuBar = () => {
       
          getData();
       }
-   }, [token, dispatch, userId]);
+   }, []);
 
    const navigate = useNavigate();
 
@@ -126,7 +126,7 @@ const MenuBar = () => {
          ) : (
             null
          )}
-         {loggedIn ? <div id="profileUser" className=" cursor-pointer h-7 w-7 rounded-full object-cover overflow-hidden bg-black" onClick={() => navigate(`/users/${userId}`)}><img className=" h-full w-full object-cover" alt="" src={pfpUser}></img></div> : <div className=" cursor-pointer" onClick={() => navigate(`/Login`)}><UserIcon /></div>}
+         {loggedIn ? <div id="profileUser" className=" cursor-pointer h-7 w-7 rounded-full object-cover overflow-hidden bg-black" onClick={() => navigate(`/users/${userId}`)}><img className=" h-full w-full object-cover" src={pfpUser}></img></div> : <div className=" cursor-pointer" onClick={() => navigate(`/Login`)}><UserIcon /></div>}
          </div>
          <div id="phoneItemsMenu">
          {loggedIn ? (
@@ -138,7 +138,7 @@ const MenuBar = () => {
          ) : (
             null
          )}
-         {loggedIn ? <div id="profileUser" className=" cursor-pointer h-7 w-7 rounded-full object-cover overflow-hidden bg-black" onClick={() => navigate(`/users/${userId}`)}><img className=" h-full w-full object-cover" alt="" src={pfpUser}></img></div> : <div className=" cursor-pointer" onClick={() => navigate(`/Login`)}><UserIcon /></div>}
+         {loggedIn ? <div id="profileUser" className=" cursor-pointer h-7 w-7 rounded-full object-cover overflow-hidden bg-black" onClick={() => navigate(`/users/${userId}`)}><img className=" h-full w-full object-cover" src={pfpUser}></img></div> : <div className=" cursor-pointer" onClick={() => navigate(`/Login`)}><UserIcon /></div>}
          </div>
       </div>
    );

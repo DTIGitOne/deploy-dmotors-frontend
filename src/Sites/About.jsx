@@ -42,7 +42,7 @@ const About = () => {
       if (userId) {
         setUserToken(true);
       }
-   }, [userId]);
+   }, []);
 
    const handleOpen = () => setOpen(true);
    const handleClose = () => setOpen(false);

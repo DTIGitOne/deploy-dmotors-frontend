@@ -3,3 +3,16 @@
    border-top: 0.1px solid #1070FF;
    margin-top: 15px;
 }
+
+#signUpBoxBox {
+   width: 88%;
+}
+
+@media only screen and (min-width: 1024px) {
+   #loginBoxBox {
+      width: 30%;
+   }
+   #signUpBoxBox {
+      width: 30%;
+   }
+}
