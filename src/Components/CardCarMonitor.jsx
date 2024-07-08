@@ -55,7 +55,6 @@ const CardCarMonitor = ({brand , model , image , date , power , gearbox , mileag
                   style={{ display: imageLoaded ? 'block' : 'none' }} 
                   onLoadStart={handleImageStartLoading} 
                   src={image} 
-                  alt="car image"
                />   
                {!imageLoaded && <div className="h-full w-full flex justify-center items-center p-24"><LoaderIcon /></div>}
             </div>
