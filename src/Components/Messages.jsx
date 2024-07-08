@@ -104,10 +104,6 @@ const Messages = ({ userId , receiverId}) => {
    }, [token]);
 
    useEffect(() => {
-      getDetails();
-   }, [getDetails]);
-
-   useEffect(() => {
       if(!userLogged) {
          setHasNewMessages(true);
       } else {
