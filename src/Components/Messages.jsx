@@ -4,7 +4,7 @@ import "../CustomCSS/Message.css";
 import CloseIcon from '@mui/icons-material/Close';
 import axiosInstance from '../API/axios';
 import { getIdToken } from '../functions/getTokenPayload';
-import { checkToken, getChats } from '../API/API';
+import { getChats } from '../API/API';
 import SendMessageIcon from '../SVG/SendMesssageIcon';
 import GoBackIcon from '../SVG/GoBackIcon';
 import { useNavigate } from 'react-router-dom';
@@ -31,6 +31,19 @@ const Messages = ({ userId , receiverId}) => {
    const dispatch = useDispatch();
 
    const bottomRef = useRef(null);
+
+   const fetchMessages = async (otherUserId) => {
+      try {
+         const response = await axiosInstance.get(`/messages/${userId}/${otherUserId}`, {
+            headers: {
+               'authorization': `Bearer ${token}`,
+            },
+         });
+         setMessages(response.data);
+      } catch (error) {
+         console.error('Error fetching messages:', error);
+      }
+   };
 
    useEffect(() => {
       if (receiverId) {
@@ -69,21 +82,26 @@ const Messages = ({ userId , receiverId}) => {
 
    const token = localStorage.getItem('authorization');
 
-   const getDetails = async () => {
-      if (token) {
-         try {
-            const idtoken = getIdToken();
-            let chats = await getChats(idtoken, token);
-            checkFunc(idtoken, token);
-            const userProfiles = chats.data.flatMap(chat => chat.users);
-            const latestMessage = chats.data.flatMap(mes => mes.latestMessage)
-            setUserProfiles(userProfiles);
-            setLatestMessages(latestMessage);
-         } catch (e) {
-            console.error('Error:', e);
+   useEffect(() => {
+      const getDetails = async () => {
+         if (token) {
+            try {
+               const idtoken = getIdToken();
+               let chats = await getChats(idtoken, token);
+               checkFunc(idtoken, token);
+               const userProfiles = chats.data.flatMap(chat => chat.users);
+               const latestMessage = chats.data.flatMap(mes => mes.latestMessage)
+               setUserProfiles(userProfiles);
+               setLatestMessages(latestMessage);
+            } catch (e) {
+               console.error('Error:', e);
+            }
          }
       }
-   }
+   
+      getDetails();
+   
+   }, [token]);
 
    useEffect(() => {
       getDetails();
@@ -107,19 +125,6 @@ const Messages = ({ userId , receiverId}) => {
    const checkFunc = async (idtoken , token) => {
       setUserLogged(true);
    }
-
-   const fetchMessages = async (otherUserId) => {
-      try {
-         const response = await axiosInstance.get(`/messages/${userId}/${otherUserId}`, {
-            headers: {
-               'authorization': `Bearer ${token}`,
-            },
-         });
-         setMessages(response.data);
-      } catch (error) {
-         console.error('Error fetching messages:', error);
-      }
-   };
 
    const handleLogin = () => {
       navigate("/Login")

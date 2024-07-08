@@ -91,7 +91,7 @@ const MenuBar = () => {
       
          getData();
       }
-   }, [token]);
+   }, [token, dispatch, userId]);
 
    const navigate = useNavigate();
 

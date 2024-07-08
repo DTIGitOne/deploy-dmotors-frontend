@@ -28,6 +28,19 @@ const UserInformation = () => {
    const [passwordError, setPasswordError] = useState(false);
    const [newPasswordError, setNewPasswordError] = useState(false);
 
+   const getUserFunc = async () => {
+      try {
+         const response = await getUser(id);
+         setName(response.data.name);
+         setSurname(response.data.surname);
+         setUsername(response.data.username);
+         setInitialUsername(response.data.username);
+         setEmail(response.data.email);
+      } catch (e) {
+         console.log(e);
+      }
+   };
+
    const handleUsername = (e) => {
       const value = e.target.value;
       setUsername(value);
@@ -61,19 +74,6 @@ const UserInformation = () => {
    }, [getUserFunc]);
 
    const navigate = useNavigate();
-
-   const getUserFunc = async () => {
-      try {
-         const response = await getUser(id);
-         setName(response.data.name);
-         setSurname(response.data.surname);
-         setUsername(response.data.username);
-         setInitialUsername(response.data.username);
-         setEmail(response.data.email);
-      } catch (e) {
-         console.log(e);
-      }
-   };
 
    const submit = async () => {
       if (!username) {
